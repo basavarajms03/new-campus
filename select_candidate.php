@@ -14,13 +14,13 @@ if (!empty($_POST['check_list'])) {
         $usn = $id_info[0];
         $JobId = $id_info[1];
 
-        $success = mysql_query("insert into selected_candidates values('$company_id','$JobId','$usn')") or die(mysql_error());
+        $success = mysqli_query($con, "insert into selected_candidates values('$company_id','$JobId','$usn')") or die(mysqli_error($con));
 		
-		$students_info = mysql_query("select email from students_registration where usn = '$usn'") or die(mysql_error());
-		$stud_data = mysql_fetch_array($students_info);
+		$students_info = mysqli_query($con, "select email from students_registration where usn = '$usn'") or die(mysqli_error($con));
+		$stud_data = mysqli_fetch_array($students_info);
 		
-		$comp_info = mysql_query("select company_name from company_registration where company_id = '$company_id'") or die(mysql_error());
-		$comp_data = mysql_fetch_array($comp_info);
+		$comp_info = mysqli_query($con, "select company_name from company_registration where company_id = '$company_id'") or die(mysqli_error($con));
+		$comp_data = mysqli_fetch_array($comp_info);
 		
 		$to       = $stud_data['email'];
         $subject  = 'Campus Recruitment';

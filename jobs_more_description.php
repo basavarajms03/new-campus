@@ -60,11 +60,11 @@ include "./dbcon/dbcon.php";
 $id = $_GET['id'];
 $company_id = $_SESSION['CompanyId'];
 
-$result1 = mysql_query("select company_name from company_registration where company_id = '$company_id'") or die(mysql_error());
-$row1 = mysql_fetch_array($result1);
+$result1 = mysqli_query($con, "select company_name from company_registration where company_id = '$company_id'") or die(mysqli_error($con));
+$row1 = mysqli_fetch_array($result1);
 
-$result = mysql_query("select * from jobs where id = '$id'") or die(mysql_error());
-$row = mysql_fetch_array($result);
+$result = mysqli_query($con, "select * from jobs where id = '$id'") or die(mysqli_error($con));
+$row = mysqli_fetch_array($result);
 
 ?>
 

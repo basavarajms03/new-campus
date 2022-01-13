@@ -17,15 +17,15 @@ $Pmarks = $_POST['Pmarks'];
 $test = $_POST['test'];
 $department = $_POST['department'];
 
-$is_company = mysql_query("SELECT * FROM company_registration WHERE company_id = $company_id") or die(mysql_error());
-$is_company_exist = mysql_num_rows($is_company);
+$is_company = mysqli_query($con, "SELECT * FROM company_registration WHERE company_id = $company_id") or die(mysqli_error($con));
+$is_company_exist = mysqli_num_rows($is_company);
 
 if ($is_company_exist > 0) {
-    $query = mysql_query("insert into jobs values('', '$company_id', '$designation', '$skills', '$salary','$description', '$date','$Hmarks','$Pmarks','$Gmarks','$test', '$department')") or die(mysql_error());
+    $query = mysqli_query($con, "insert into jobs values('', '$company_id', '$designation', '$skills', '$salary','$description', '$date','$Hmarks','$Pmarks','$Gmarks','$test', '$department')") or die(mysqli_error($con));
     if ($query) {
-        $result = mysql_query("SELECT * FROM students_registration") or die(mysql_error());
+        $result = mysqli_query($con, "SELECT * FROM students_registration") or die(mysqli_error($con));
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
 
             $to       = $row[3];
             $subject  = 'Campus Recruitment  (College Notification)';
@@ -50,12 +50,12 @@ if ($is_company_exist > 0) {
             mail($to, $subject, $message, $headers);
         }
 
-        $result = mysql_query("SELECT * FROM students_registration s, jobs j WHERE j.company_id =  '$company_id' AND j.GMarks <= s.UgAgg
+        $result = mysqli_query($con, "SELECT * FROM students_registration s, jobs j WHERE j.company_id =  '$company_id' AND j.GMarks <= s.UgAgg
     AND j.PMarks <= s.PDAgg
     AND j.department = s.department
-    AND j.HMarks <= s.Hagg") or die(mysql_error());
+    AND j.HMarks <= s.Hagg") or die(mysqli_error($con));
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $to       = $row[3];
             $subject  = 'Campus Recruitment (College Notification)';
             $message  = '<font face="verdana"><p style="font-family:verdana">Hi</p>
@@ -94,14 +94,14 @@ if ($is_company_exist > 0) {
         <?php
     }
 } else {
-    $is_company_not_exist = mysql_query("INSERT INTO company_registration(company_id, company_name) VALUES('$company_id','$companyName')") or die(mysql_error());
+    $is_company_not_exist = mysqli_query($con, "INSERT INTO company_registration(company_id, company_name) VALUES('$company_id','$companyName')") or die(mysqli_error($con));
     if ($is_company_not_exist) {
-        $query = mysql_query("insert into jobs values('', '$company_id', '$designation', '$skills', '$salary','$description', '$date','$Hmarks','$Pmarks','$Gmarks','$test','$department')") or die(mysql_error());
+        $query = mysqli_query($con, "insert into jobs values('', '$company_id', '$designation', '$skills', '$salary','$description', '$date','$Hmarks','$Pmarks','$Gmarks','$test','$department')") or die(mysqli_error($con));
         if ($query) {
 
-            $result = mysql_query("SELECT * FROM students_registration") or die(mysql_error());
+            $result = mysqli_query($con, "SELECT * FROM students_registration") or die(mysqli_error($con));
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
 
                 $to       = $row[3];
                 $subject  = 'Campus Recruitment (College Notification)';
@@ -126,12 +126,12 @@ if ($is_company_exist > 0) {
                 mail($to, $subject, $message, $headers);
             }
 
-            $result = mysql_query("SELECT * FROM students_registration s, jobs j WHERE j.company_id =  '$company_id' AND j.GMarks <= s.UgAgg
+            $result = mysqli_query($con, "SELECT * FROM students_registration s, jobs j WHERE j.company_id =  '$company_id' AND j.GMarks <= s.UgAgg
         AND j.PMarks <= s.PDAgg
 		AND j.department = s.department
-        AND j.HMarks <= s.Hagg") or die(mysql_error());
+        AND j.HMarks <= s.Hagg") or die(mysqli_error($con));
 
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
 
                 $to       = $row[3];
                 $subject  = 'Campus Recruitment (College Notification)';

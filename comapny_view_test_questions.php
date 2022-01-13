@@ -56,8 +56,8 @@
     <?php
     include "./dbcon/dbcon.php";
     $jobid = $_GET['companyId'];
-    $result = mysql_query("SELECT * FROM test t
-    WHERE t.job_id = $jobid and t.company_id = '$_SESSION[CompanyId]'") or die(mysql_error());
+    $result = mysqli_query($con, "SELECT * FROM test t
+    WHERE t.job_id = $jobid and t.company_id = '$_SESSION[CompanyId]'") or die(mysqli_error($con));
     ?>
     <input type="hidden" value="<?php echo $jobid; ?>" name="jobid">
     <table class="table table-striped w-100">
@@ -74,7 +74,7 @@
         <tbody>
             <?php
             $i = 0;
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
                 $i = $i + 1;
             ?>
                 <tr>

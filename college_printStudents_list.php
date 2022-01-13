@@ -15,8 +15,8 @@
 <a href="college_registered_students.php">Back</a>
 <?php
 include "dbcon/dbcon.php";
-$registered_students = mysql_query("Select * from students_registration") or die(mysql_error());
-if(mysql_num_rows($registered_students) == 0){
+$registered_students = mysqli_query($con, "Select * from students_registration") or die(mysqli_error($con));
+if(mysqli_num_rows($registered_students) == 0){
 	echo "<p class='alert alert-danger'>No Students Registered Till Date.</p>";
 } else {
 	?>
@@ -33,7 +33,7 @@ if(mysql_num_rows($registered_students) == 0){
 				<td>Department</td>
 			</tr>
 	<?php
-	while($row = mysql_fetch_array($registered_students)){
+	while($row = mysqli_fetch_array($registered_students)){
 		echo "<tr><td>";
 		echo $row[0];
 		echo "</td><td>";

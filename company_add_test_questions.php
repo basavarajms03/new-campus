@@ -62,13 +62,13 @@ include "./dbcon/dbcon.php";
     <!-- Display Company Details information -->
     <?php
 
-    $question_count = mysql_query("SELECT * FROM test t, jobs j
-    WHERE j.id = t.job_id AND t.company_id = '$_SESSION[CompanyId]'") or die(mysql_error());
-    $question_count = mysql_num_rows($question_count);
+    $question_count = mysqli_query($con, "SELECT * FROM test t, jobs j
+    WHERE j.id = t.job_id AND t.company_id = '$_SESSION[CompanyId]'") or die(mysqli_error($con));
+    $question_count = mysqli_num_rows($question_count);
 
-    $result = mysql_query("SELECT j.id,j.designation FROM jobs j, company_registration c
-    WHERE j.company_id = $_SESSION[CompanyId] AND j.test = 1") or die(mysql_error());
-    $count = mysql_num_rows($result);
+    $result = mysqli_query($con, "SELECT j.id,j.designation FROM jobs j, company_registration c
+    WHERE j.company_id = $_SESSION[CompanyId] AND j.test = 1") or die(mysqli_error($con));
+    $count = mysqli_num_rows($result);
     if ($count > 0) {
         ?>
 
@@ -80,7 +80,7 @@ include "./dbcon/dbcon.php";
             </thead>
             <tbody>
                 <?php
-                    while ($row = mysql_fetch_array($result)) {
+                    while ($row = mysqli_fetch_array($result)) {
                         echo "<tr><td>";
                         echo $row[1];
                         echo "</td><td>";

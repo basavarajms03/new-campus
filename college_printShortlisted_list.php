@@ -19,14 +19,14 @@
 
     include "./dbcon/dbcon.php";
 
-    $result = mysql_query("SELECT * FROM students_registration s, jobs j, company_registration c WHERE j.company_id =  '$id' AND j.GMarks <= s.UgAgg
+    $result = mysqli_query($con, "SELECT * FROM students_registration s, jobs j, company_registration c WHERE j.company_id =  '$id' AND j.GMarks <= s.UgAgg
 AND j.PMarks <= s.PDAgg
 AND j.HMarks <= s.Hagg
 AND j.department = s.department
 AND j.id = '$company_id'
-GROUP BY s.usn") or die(mysql_error());
+GROUP BY s.usn") or die(mysqli_error($con));
 
-$row1 = mysql_fetch_array($result);
+$row1 = mysqli_fetch_array($result);
 $company_name = $row1[31];
 
     ?>
@@ -49,7 +49,7 @@ $company_name = $row1[31];
         </thead>
         <tbody>
             <?php
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
                 echo "<tr><td>";
                 echo $row[0];
                 echo "</td><td>";

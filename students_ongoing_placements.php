@@ -51,12 +51,12 @@
         <?php
 
         include "./dbcon/dbcon.php";
-        $department = mysql_query("Select department from students_registration where usn = '$_SESSION[usn]'") or die(mysql_error());
-        $dept = mysql_fetch_array($department);
+        $department = mysqli_query($con, "Select department from students_registration where usn = '$_SESSION[usn]'") or die(mysqli_error($con));
+        $dept = mysqli_fetch_array($department);
 
-        $result = mysql_query("SELECT c.company_name, j.* FROM jobs j, company_registration c
-        WHERE j.company_id = c.company_id AND j.department = '$dept[0]'") or die(mysql_error());
-        while ($row = mysql_fetch_array($result)) {
+        $result = mysqli_query($con, "SELECT c.company_name, j.* FROM jobs j, company_registration c
+        WHERE j.company_id = c.company_id AND j.department = '$dept[0]'") or die(mysqli_error($con));
+        while ($row = mysqli_fetch_array($result)) {
         ?><div class="card mt-3">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $row[0]; ?>

@@ -63,11 +63,11 @@
 
     include "./dbcon/dbcon.php";
 
-    $result = mysql_query("SELECT * FROM students_registration s, jobs j WHERE j.company_id =  '$company_id' AND j.GMarks <= s.UgAgg
+    $result = mysqli_query($con, "SELECT * FROM students_registration s, jobs j WHERE j.company_id =  '$company_id' AND j.GMarks <= s.UgAgg
 AND j.PMarks <= s.PDAgg
 AND j.HMarks <= s.Hagg
 AND j.department = s.department
-AND j.id ='$id'") or die(mysql_error());
+AND j.id ='$id'") or die(mysqli_error($con));
 
     ?>
 
@@ -84,9 +84,9 @@ AND j.id ='$id'") or die(mysql_error());
         <tbody>
             <form method="POST" action="select_candidate.php">
                 <?php
-                while ($row = mysql_fetch_array($result)) {
-                    $selected_stdents = mysql_query("Select * from selected_candidates where company_id = '$company_id' and jobid = '$_GET[id]' and usn = '$row[0]'");
-                    if (mysql_num_rows($selected_stdents) > 0) {
+                while ($row = mysqli_fetch_array($result)) {
+                    $selected_stdents = mysqli_query($con, "Select * from selected_candidates where company_id = '$company_id' and jobid = '$_GET[id]' and usn = '$row[0]'");
+                    if (mysqli_num_rows($selected_stdents) > 0) {
                         echo "<tr><td>";
                         $selected = "<span class='text-success'>Selected</span>";
                     } else {

@@ -44,9 +44,9 @@
     <!-- Display Added Jobs From Company -->
     <?php
     include "./dbcon/dbcon.php";
-    $result = mysql_query("SELECT c.company_name, c.company_id, j.*
+    $result = mysqli_query($con, "SELECT c.company_name, c.company_id, j.*
     FROM company_registration c, jobs j
-    WHERE c.company_id = j.company_id") or die(mysql_error());
+    WHERE c.company_id = j.company_id") or die(mysqli_error($con));
     ?>
 
     <table class="table table-striped w-100">
@@ -62,7 +62,7 @@
         </thead>
         <tbody>
             <?php
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
                 echo "<tr><td>";
                 echo $row[0];
                 echo "</td><td>";

@@ -7,8 +7,8 @@ include "./dbcon/dbcon.php";
 $usn = strtoupper($_POST['usn']);
 $password = $_POST['password'];
 
-$result = mysql_query("select * from students_registration where usn = '$usn' and password = '$password'") or die(mysql_error());
-$count = mysql_num_rows($result);
+$result = mysqli_query($con, "select * from students_registration where usn = '$usn' and password = '$password'") or die(mysqli_error($con));
+$count = mysqli_num_rows($result);
 
 if($count > 0){
     $_SESSION['usn'] = $usn;

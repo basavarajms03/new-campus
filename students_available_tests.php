@@ -50,12 +50,12 @@
     <!-- Display Added Jobs From Company -->
     <?php
     include "./dbcon/dbcon.php";
-    $result = mysql_query("SELECT j.id,c.company_name,j.designation,j.date, j.salary FROM company_registration c, jobs j, students_registration s
+    $result = mysqli_query($con, "SELECT j.id,c.company_name,j.designation,j.date, j.salary FROM company_registration c, jobs j, students_registration s
     WHERE c.company_id = j.company_id AND j.GMarks <= s.UgAgg
     AND j.PMarks <= s.PDAgg
     AND j.HMarks <= s.Hagg
     AND j.department = s.department
-    AND s.usn = '$_SESSION[usn]' AND j.test = 1") or die(mysql_error());
+    AND s.usn = '$_SESSION[usn]' AND j.test = 1") or die(mysqli_error($con));
     ?>
 
     <table class="table table-striped w-100">
@@ -69,9 +69,9 @@
             </thead>
             <tbody>
                 <?php
-                    while($row = mysql_fetch_array($result)){
-                        $taken_test = mysql_query("select * from students_test_taken where usn = '$row[0]'") or die(mysql_error());
-                        if(mysql_num_rows($taken_test) > 0){
+                    while($row = mysqli_fetch_array($result)){
+                        $taken_test = mysqli_query($con, "select * from students_test_taken where usn = '$row[0]'") or die(mysqli_error($con));
+                        if(mysqli_num_rows($taken_test) > 0){
                             $take_test = "";
                         } else {
                             $take_test = "Take Test";

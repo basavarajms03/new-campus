@@ -4,7 +4,7 @@ $id = $_GET['question_no'];
 
 include "./dbcon/dbcon.php";
 
-$sql_stat = mysql_query("delete from test where text_id = $id") or die(mysql_error());
+$sql_stat = mysqli_query($con, "delete from test where text_id = $id") or die(mysqli_error($con));
 
 if ($sql_stat) {
 ?>

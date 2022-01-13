@@ -5,9 +5,9 @@ include "./dbcon/dbcon.php";
 $emailid = $_POST['emailid'];
 
 
-$result = mysql_query("select * from college_registration where email = '$emailid'") or die(mysql_error());
-$count = mysql_num_rows($result);
-$row = mysql_fetch_array($result);
+$result = mysqli_query($con, "select * from college_registration where email = '$emailid'") or die(mysqli_error($con));
+$count = mysqli_num_rows($result);
+$row = mysqli_fetch_array($result);
 
 if($count > 0){
 	$to = $emailid;

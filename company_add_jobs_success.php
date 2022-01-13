@@ -15,15 +15,15 @@ $Pmarks = $_POST['Pmarks'];
 $test = $_POST['test'];
 $department = $_POST['department'];
 
-$company_info = mysql_query("Select * from company_registration where company_id = '$company_id'");
-$company_information = mysql_fetch_array($company_info);
+$company_info = mysqli_query($con, "Select * from company_registration where company_id = '$company_id'");
+$company_information = mysqli_fetch_array($company_info);
 
-$query = mysql_query("insert into jobs values('', '$company_id', '$designation', '$skills', '$salary','$description', '$date','$Hmarks','$Pmarks','$Gmarks','$test', '$department')") or die(mysql_error());
+$query = mysqli_query($con, "insert into jobs values('', '$company_id', '$designation', '$skills', '$salary','$description', '$date','$Hmarks','$Pmarks','$Gmarks','$test', '$department')") or die(mysqli_error($con));
 if ($query) {
 
-    $result = mysql_query("SELECT * FROM students_registration") or die(mysql_error());
+    $result = mysqli_query($con, "SELECT * FROM students_registration") or die(mysqli_error($con));
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $to       = $row[3];
         $subject  = 'Campus Recruitment (' . $company_information[1] . ' Notification)';
@@ -47,12 +47,12 @@ if ($query) {
         mail($to, $subject, $message, $headers);
     }
 
-    $result = mysql_query("SELECT * FROM students_registration s, jobs j WHERE j.company_id =  '$company_id' AND j.GMarks <= s.UgAgg
+    $result = mysqli_query($con, "SELECT * FROM students_registration s, jobs j WHERE j.company_id =  '$company_id' AND j.GMarks <= s.UgAgg
 AND j.PMarks <= s.PDAgg
 AND j.department = '$department'
-AND j.HMarks <= s.Hagg") or die(mysql_error());
+AND j.HMarks <= s.Hagg") or die(mysqli_error($con));
 
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
 
         $to       = $row[3];
         $subject  = 'Campus Recruitment (' . $company_information[1] . ' Notification)';

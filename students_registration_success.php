@@ -33,13 +33,13 @@ $Projects = strtoupper($_POST['projectDetails']);
 $password = substr(str_shuffle($str_result),0,6);
 
 
-$result = mysql_query("Select * from students_registration where usn = '$usn'") or die(mysql_error());
-$count = mysql_num_rows($result);
+$result = mysqli_query($con, "Select * from students_registration where usn = '$usn'") or die(mysqli_error($con));
+$count = mysqli_num_rows($result);
 if ($count == 0) {
     $stmt = "insert into students_registration values('$usn', '$fname $mname $lname', '$dob','$email','$mobile_number',
     '$UGBoard', '$UGPassing','$UGPercentage','$PDBoard','$PDPassing','$PDPercentage',
     '$HBoard','$HPassing','$HPercentage','$Achievements','$Projects','$password', '$department')";
-    if (mysql_query($stmt)) {
+    if (mysqli_query($con, $stmt)) {
         $to       = $email;
         $subject  = 'Campus Recruitment';
         $message  = '<font face="verdana"><p style="font-family:verdana">Hi</p>

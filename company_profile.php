@@ -72,8 +72,8 @@ include "./dbcon/dbcon.php";
                         <!-- Display Company Details information -->
                         <?php
 
-                        $result = mysql_query("select * from company_registration where company_id = '$_SESSION[CompanyId]'") or die(mysql_error());
-                        $row = mysql_fetch_array($result);
+                        $result = mysqli_query($con, "select * from company_registration where company_id = '$_SESSION[CompanyId]'") or die(mysqli_error($con));
+                        $row = mysqli_fetch_array($result);
                         echo "<p>Company Id :&nbsp;" . $row[0];
                         echo "<p>Company Name :&nbsp;" . $row[1];
                         echo "<p>Location :&nbsp;" . $row[2];

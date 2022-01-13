@@ -17,11 +17,11 @@ include "./dbcon/dbcon.php";
 
 $stmt = "insert into company_registration values('$company_id', '$company_name','$company_location','$company_email','$company_employees','$company_description','$company_password')";
 
-$result = mysql_query("Select * from company_registration where company_id = '$company_id' or email_id = '$company_email'") or die(mysql_error());
-$count = mysql_num_rows($result);
+$result = mysqli_query($con, "Select * from company_registration where company_id = '$company_id' or email_id = '$company_email'") or die(mysqli_error($con));
+$count = mysqli_num_rows($result);
 
 if($count == 0){
-    if (mysql_query($stmt)) {
+    if (mysqli_query($con, $stmt)) {
         $to       = $company_email;
         $subject  = 'Campus Recruitment';
         $message  = '<div style="font-family:verdana"><h3 style="text-align:center;color:#00A99D;border-bottom:3px solid navy;font-family:verdana">Campus Recruitment</h3><p style="font-family:verdana;text-align:center">Hi</p>

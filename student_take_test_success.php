@@ -8,17 +8,17 @@ $jobid = $_POST['jobid'];
 $usn = $_SESSION['usn'];
 
 
-$result = mysql_query("SELECT t.company_id, c.company_name FROM test t, company_registration c
-WHERE t.company_id = c.company_id AND t.job_id = '$jobid'") or die("Company Id" . mysql_error());
+$result = mysqli_query($con, "SELECT t.company_id, c.company_name FROM test t, company_registration c
+WHERE t.company_id = c.company_id AND t.job_id = '$jobid'") or die("Company Id" . mysqli_error($con));
 
-$row = mysql_fetch_array($result);
+$row = mysqli_fetch_array($result);
 $companyId = $row[0];
 $company_name = $row[1];
 
-$result = mysql_query("SELECT crct_answer FROM test
-WHERE job_id = $jobid ") or die("Number Of counts" . mysql_error());
+$result = mysqli_query($con, "SELECT crct_answer FROM test
+WHERE job_id = $jobid ") or die("Number Of counts" . mysqli_error($con));
 
-$count = mysql_num_rows($result);
+$count = mysqli_num_rows($result);
 
 $user_answers = array();
 
@@ -34,11 +34,11 @@ $crct_answer = array();
 
 $percentage = 0;
 
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
     array_push($crct_answer, $row[0]);
 }
 
-$count = mysql_num_rows($result);
+$count = mysqli_num_rows($result);
 
 for ($j = 0; $j < $count; $j++) {
     if ($crct_answer[$j] == $user_answers[$j]) {
@@ -48,10 +48,10 @@ for ($j = 0; $j < $count; $j++) {
 
 $percentage = ($percentage * 100) / 2;
 if ($percentage >= 50) {
-    mysql_query("insert into students_test_clear values('$usn','$companyId','$jobid')") or die(mysql_error());
+    mysqli_query($con, "insert into students_test_clear values('$usn','$companyId','$jobid')") or die(mysqli_error($con));
 
-    $result = mysql_query("select * from students_registration where usn = '$usn'") or die(mysql_error());
-    $row = mysql_fetch_array($result);
+    $result = mysqli_query($con, "select * from students_registration where usn = '$usn'") or die(mysqli_error($con));
+    $row = mysqli_fetch_array($result);
     $to       = $row[3];
     $subject  = 'Test Clear Notification';
     $message  = '<font face="verdana">Hi, You cleared the test for the company <b>'.$company_name . '</b><br/>

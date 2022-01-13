@@ -47,12 +47,12 @@
     <?php
     include './dbcon/dbcon.php';
 
-    $result = mysql_query("SELECT S.USN, R.NAME, C.COMPANY_NAME, J.DESIGNATION, J.DEPARTMENT
+    $result = mysqli_query($con, "SELECT S.USN, R.NAME, C.COMPANY_NAME, J.DESIGNATION, J.DEPARTMENT
                         FROM SELECTED_CANDIDATES S, STUDENTS_REGISTRATION R, JOBS J, COMPANY_REGISTRATION C
                         WHERE R.USN = S.USN
                         AND J.ID = S.JOBID
-                        AND C.COMPANY_ID = S.COMPANY_ID") or die(mysql_error());
-    $count = mysql_num_rows($result);
+                        AND C.COMPANY_ID = S.COMPANY_ID") or die(mysqli_error($con));
+    $count = mysqli_num_rows($result);
     if ($count > 0) {
     ?>
 
@@ -98,7 +98,7 @@
             </thead>
             <tbody>
                 <?php
-                while ($row = mysql_fetch_array($result)) {
+                while ($row = mysqli_fetch_array($result)) {
                     echo "<tr><td>";
                     echo $row[0];
                     echo "</td><td>";

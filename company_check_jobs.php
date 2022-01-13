@@ -63,11 +63,11 @@
     <!-- Display Added Jobs From Company -->
     <?php
     include "./dbcon/dbcon.php";
-    $result = mysql_query("SELECT c.company_name, j . *
+    $result = mysqli_query($con, "SELECT c.company_name, j . *
     FROM company_registration c, jobs j
     WHERE j.company_id ='$_SESSION[CompanyId]'
     AND c.company_id ='$_SESSION[CompanyId]'
-    LIMIT 0 , 30") or die(mysql_error());
+    LIMIT 0 , 30") or die(mysqli_error($con));
     ?>
 
     <table class="table table-striped w-100">
@@ -83,7 +83,7 @@
         </thead>
         <tbody>
             <?php
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
                 echo "<tr><td>";
                 echo $row[0];
                 echo "</td><td>";

@@ -1,5 +1,5 @@
 <?php
 
-mysql_connect("localhost","root","") or die(mysql_error());
+$con = mysqli_connect("localhost", 'root', '', 'campusrecruitment') or die(mysqli_error($con));
 
-mysql_select_db("campusrecruitment") or die(mysql_error());
+mysqli_select_db($con, "campusrecruitment") or die(mysqli_error($con));

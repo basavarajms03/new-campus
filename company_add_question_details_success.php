@@ -13,7 +13,7 @@ $b = strtoupper($_POST['b']);
 $c = strtoupper($_POST['c']);
 $d = strtoupper($_POST['d']);
 
-$query = mysql_query("insert into test values('', '$companyid','$jobid','$question','$a','$b','$c','$d','$crct_answer')") or die(mysql_error());
+$query = mysqli_query($con, "insert into test values('', '$companyid','$jobid','$question','$a','$b','$c','$d','$crct_answer')") or die(mysqli_error($con));
 
 if($query){
     ?>

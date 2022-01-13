@@ -54,17 +54,17 @@
     <?php
     include "./dbcon/dbcon.php";
     $jobid = $_GET['jobid'];
-    $result = mysql_query("SELECT * FROM test t
-    WHERE t.job_id = $jobid") or die(mysql_error());
+    $result = mysqli_query($con, "SELECT * FROM test t
+    WHERE t.job_id = $jobid") or die(mysqli_error($con));
 
-    mysql_query("insert into students_test_taken values('$_SESSION[usn]','','$jobid')") or die(mysql_error());
+    mysqli_query($con, "insert into students_test_taken values('$_SESSION[usn]','','$jobid')") or die(mysqli_error($con));
     ?>
     <form name="myform" action="student_take_test_success.php" method="post" style="margin-top:5em !important">
         <input type="hidden" value="<?php echo $jobid; ?>" name="jobid">
         <div class="container mt-5">
             <?php
             $i = 0;
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysqli_fetch_array($result)) {
                 $i = $i + 1;
             ?>
                 <div class="card mt-3">

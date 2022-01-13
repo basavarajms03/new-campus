@@ -50,13 +50,13 @@
     <!-- Display Added Jobs From Company -->
     <?php
     include "./dbcon/dbcon.php";
-    $result = mysql_query("SELECT c.company_name, j.designation, j.date, j.salary FROM company_registration c, jobs j, students_registration s
+    $result = mysqli_query($con, "SELECT c.company_name, j.designation, j.date, j.salary FROM company_registration c, jobs j, students_registration s
     WHERE j.Gmarks <= s.UgAgg AND
     j.Pmarks <= s.PDAgg AND
     j.Hmarks <= s.HAgg AND
     j.department = s.department AND
     s.usn = '$_SESSION[usn]'
-    ") or die(mysql_error());
+    ") or die(mysqli_error($con));
     ?>
 
     <table class="table table-striped w-100">
@@ -70,7 +70,7 @@
             </thead>
             <tbody>
                 <?php
-                    while($row = mysql_fetch_array($result)){
+                    while($row = mysqli_fetch_array($result)){
                         echo "<tr><td>";
                         echo $row[0];
                         echo "</td><td>";
